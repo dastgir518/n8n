@@ -43,6 +43,8 @@ volumes:
   caddy_data:
   caddy_config:
   n8n_data:
+    external: true
+    name: purostill_n8n_data
 
 networks:
   caddy_net:
