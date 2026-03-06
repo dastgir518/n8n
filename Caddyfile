@@ -13,12 +13,12 @@ www.purostill.com {
 }
 
 distributingcare.com {
-    reverse_proxy distcare-frontend:3000
+    reverse_proxy distributingcare-frontend:3000
     encode zstd gzip
 }
 
 www.distributingcare.com {
-    reverse_proxy distcare-frontend:3000
+    reverse_proxy distributingcare-frontend:3000
     encode zstd gzip
 }
 
