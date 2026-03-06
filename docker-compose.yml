@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - N8N_HOST=n8n.biolecmobility.com
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.biolecmobility.com/
+      - GENERIC_TIMEZONE=Asia/Karachi
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=strongpassword
+    volumes:
+      - n8n_data:/home/node/.n8n
+    expose:
+      - "5678"
+    networks:
+      - caddy_net
+
+  caddy:
+    container_name: caddy
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - n8n
+    networks:
+      - caddy_net
+
+volumes:
+  caddy_data:
+  caddy_config:
+  n8n_data:
+
+networks:
+  caddy_net:
+    external: true

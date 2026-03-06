@@ -1,0 +1,28 @@
+{
+    email contact@purostill.com
+}
+
+purostill.com {
+    reverse_proxy purostill-frontend:3000
+    encode zstd gzip
+}
+
+www.purostill.com {
+    reverse_proxy purostill-frontend:3000
+    encode zstd gzip
+}
+
+distributingcare.com {
+    reverse_proxy distcare-frontend:3000
+    encode zstd gzip
+}
+
+www.distributingcare.com {
+    reverse_proxy distcare-frontend:3000
+    encode zstd gzip
+}
+
+n8n.biolecmobility.com {
+    reverse_proxy n8n:5678
+    encode zstd gzip
+}
